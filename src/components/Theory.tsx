@@ -1,135 +1,226 @@
-import { BookOpen, AlertCircle, TerminalSquare } from 'lucide-react';
+import { AlertCircle, TerminalSquare, Server, Wifi, Network, ChevronRight, Zap } from 'lucide-react';
 
 export function Theory() {
   return (
-    <div>
-      <div className="card" style={{ borderLeft: '4px solid var(--primary-color)' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <BookOpen size={24} color="var(--primary-color)" />
-          Lý thuyết cốt lõi: Nắm trọn bản chất Subnetting
-        </h2>
-        <p style={{ color: 'var(--text-muted)' }}>
-          Đừng học vẹt công thức. Để chia IP chính xác và không bao giờ quên, bạn cần hiểu bản chất nhị phân của quá trình này.
-        </p>
-      </div>
+    <div className="animate-in" style={{ paddingBottom: '4rem' }}>
 
-      <div className="grid-2">
-        <div className="card">
-          <h3 style={{ marginBottom: '1rem' }}>1. Các lớp địa chỉ IP (Classes)</h3>
-          <p style={{ marginBottom: '1rem' }}>IPv4 có 32 bit, chia làm 4 cụm (octet). Tùy vào khoảng giá trị của octet đầu tiên mà ta phân thành các lớp:</p>
-          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-muted)' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: '#fff'}}>Lớp A (0 - 127):</strong> Mặc định /8 (255.0.0.0). Rất lớn, dùng cho mạng khổng lồ. <em>VD: 10.0.0.0</em></li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: '#fff'}}>Lớp B (128 - 191):</strong> Mặc định /16 (255.255.0.0). Dành cho mạng trung bình. <em>VD: 172.16.0.0</em></li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: '#fff'}}>Lớp C (192 - 223):</strong> Mặc định /24 (255.255.255.0). Phổ biến nhất, dành cho mạng nhỏ (công ty, trường học). <em>VD: 192.168.1.0</em></li>
-          </ul>
-          <div className="alert alert-error" style={{ marginTop: '1rem' }}>
-            <AlertCircle size={20} />
-            Lớp D (224-239) dùng cho Multicast, lớp E (240-255) dùng để nghiên cứu. Ta <strong>không</strong> chia host cho 2 lớp này.
+
+      <div className="grid-2" style={{ marginBottom: '2rem' }}>
+        {/* Class Info */}
+        <div className="card" style={{ position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: -50, right: -50, opacity: 0.05 }}>
+            <Server size={200} />
+          </div>
+          <div className="card-header" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+            <Wifi size={20} color="var(--accent-green)" />
+            <h2 style={{ fontSize: '1.2rem' }}>1. Kiến trúc Lớp (IP Classes)</h2>
+          </div>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+            IPv4 gồm 32 bit, chia thành 4 octet. Dựa vào octet đầu tiên, ta có phân lớp:
+          </p>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderLeft: '2px solid var(--accent-error)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <strong style={{ color: '#fff' }}>Lớp A (0 - 127)</strong>
+                <span className="mono" style={{ color: 'var(--text-muted)' }}>/8 (255.0.0.0)</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Mạng khổng lồ. VD: <span className="mono" style={{color: '#fff'}}>10.0.0.0</span></div>
+            </div>
+
+            <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderLeft: '2px solid var(--accent-blue)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <strong style={{ color: '#fff' }}>Lớp B (128 - 191)</strong>
+                <span className="mono" style={{ color: 'var(--text-muted)' }}>/16 (255.255.0.0)</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Mạng trung bình. VD: <span className="mono" style={{color: '#fff'}}>172.16.0.0</span></div>
+            </div>
+
+            <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderLeft: '2px solid var(--accent-green)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <strong style={{ color: '#fff' }}>Lớp C (192 - 223)</strong>
+                <span className="mono" style={{ color: 'var(--text-muted)' }}>/24 (255.255.255.0)</span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Mạng nhỏ phổ biến. VD: <span className="mono" style={{color: '#fff'}}>192.168.1.0</span></div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem', padding: '1rem', background: 'rgba(255, 68, 68, 0.1)', border: '1px solid rgba(255, 68, 68, 0.2)' }}>
+            <AlertCircle size={20} color="var(--accent-error)" style={{ flexShrink: 0 }} />
+            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+              <strong style={{ color: 'var(--accent-error)' }}>Lớp D (224-239) & Lớp E (240-255)</strong> được bảo lưu cho Multicast và nghiên cứu. <strong>Tuyệt đối không</strong> cấp phát cho Host.
+            </p>
           </div>
         </div>
 
-        <div className="card">
-          <h3 style={{ marginBottom: '1rem' }}>2. Cấu tạo của địa chỉ IP</h3>
-          <p style={{ marginBottom: '1rem' }}>Một địa chỉ IP luôn gồm 2 phần: <strong>Phần Mạng (Network ID)</strong> và <strong>Phần Host (Host ID)</strong>.</p>
-          <div className="mono" style={{ background: '#000', padding: '1rem', borderRadius: '4px', color: 'var(--primary-color)' }}>
-            11000000.10101000.00000001 <span style={{ color: '#fff' }}>|</span> 00000000<br/>
-            <span style={{ color: 'var(--text-muted)' }}>&lt;------- Phần Mạng -------&gt; <span style={{ color: '#fff' }}>|</span> &lt;- Host -&gt;</span>
+        {/* Structure Info */}
+        <div className="card" style={{ position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: -50, right: -50, opacity: 0.05 }}>
+            <Network size={200} />
           </div>
-          <p style={{ marginTop: '1rem' }}>
-            <strong>Subnet Mask (Mặt nạ mạng)</strong> có vai trò vạch ra "vách ngăn" (dấu <code style={{color: '#fff'}}>|</code>) này. Chỗ nào mask là 1 thì đó là mạng, là 0 thì đó là host.
+          <div className="card-header" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+            <TerminalSquare size={20} color="var(--accent-blue)" />
+            <h2 style={{ fontSize: '1.2rem' }}>2. Cấu tạo & Vách ngăn</h2>
+          </div>
+          
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+            Một địa chỉ IP luôn bị phân mảnh thành 2 nửa đối lập: <strong>Network ID</strong> và <strong>Host ID</strong>.
+          </p>
+
+          <div style={{ background: '#050505', border: '1px solid #222', borderRadius: '4px', overflow: 'hidden', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', gap: '6px', padding: '10px 12px', background: '#111', borderBottom: '1px solid #222' }}>
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f56' }}></div>
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }}></div>
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#27c93f' }}></div>
+            </div>
+            <div className="mono" style={{ padding: '1.5rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', lineHeight: 1.5 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span style={{ color: 'var(--accent-blue)', letterSpacing: '2px' }}>11000000.10101000.00000001</span>
+                <span style={{ color: 'var(--accent-blue)', fontSize: '0.8rem', marginTop: '4px' }}>&lt;------- Phần Mạng -------&gt;</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 15px' }}>
+                <span style={{ color: '#fff', fontWeight: 'bold' }}>|</span>
+                <span style={{ color: 'transparent', fontSize: '0.8rem', marginTop: '4px' }}>|</span>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span style={{ color: 'var(--accent-error)', letterSpacing: '2px' }}>00000000</span>
+                <span style={{ color: 'var(--accent-error)', fontSize: '0.8rem', marginTop: '4px' }}>&lt;- Host -&gt;</span>
+              </div>
+            </div>
+          </div>
+
+          <p style={{ color: 'var(--text-muted)', lineHeight: 1.6 }}>
+            Ký tự <code style={{ color: '#fff' }}>|</code> chính là <strong>Subnet Mask (Mặt nạ mạng)</strong>. Quy tắc thép: Bit của Mask là <code style={{ color: 'var(--accent-blue)' }}>1</code> thì đó là Mạng, là <code style={{ color: 'var(--accent-error)' }}>0</code> thì đó là Host.
           </p>
         </div>
       </div>
 
+      {/* Tutorial Section */}
       <div className="card">
-        <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <TerminalSquare size={20} />
-          3. Bài toán thực tế (Trích xuất từ chính vở ghi của bạn)
-        </h3>
-        <p style={{ marginBottom: '1rem', fontSize: '1.1rem', color: 'var(--primary-color)' }}>
-          <strong>Đề bài:</strong> Cho IP <code>192.180.80.10</code>. Hãy chia cho 4 phòng máy:<br/>
-          P1: 123 máy | P2: 62 máy | P3: 30 máy | P4: 28 máy
-        </p>
+        <div className="card-header" style={{ marginBottom: '2rem' }}>
+          <Zap size={24} color="#ffbd2e" />
+          <h2 style={{ fontSize: '1.5rem' }}>3. Thực chiến: Giải phẫu một bài toán VLSM</h2>
+        </div>
         
-        <div style={{ background: 'var(--bg-color)', padding: '1.5rem', borderRadius: '8px', borderLeft: '2px solid var(--text-muted)', marginBottom: '1rem' }}>
-          <h4 style={{ color: '#ffb3c6', marginBottom: '0.5rem' }}>Bước 1: Phân tích IP ban đầu</h4>
-          <p>Mạng cơ sở của bạn là <code>192.180.80.10</code>. Vì số đầu tiên là 192, đây là địa chỉ <strong>Lớp C</strong>.</p>
-          <p>Lớp C mặc định có Subnet Mask là /24 (nghĩa là 24 bit đầu tiên bắt buộc dành cho Mạng, chỉ có 8 bit cuối cùng là dành cho Máy/Host).</p>
-          <p>Chuyển số 10 ở cụm cuối cùng ra hệ nhị phân (8 bit), ta được: <code>00001010</code>. Vậy cấu trúc IP hiện tại là:</p>
-          <div className="mono" style={{ background: '#000', padding: '1rem', borderRadius: '4px', color: '#fff', margin: '1rem 0' }}>
-            11000000 . 10110100 . 01010000 <span style={{ color: 'var(--primary-color)' }}>|</span> 00001010<br/>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>&lt;--------- 24 bit Mạng ---------&gt; <span style={{ color: 'var(--primary-color)' }}>|</span> &lt;8 bit Host&gt;</span>
-          </div>
-          <p>Để tìm "Địa chỉ mạng chuẩn" (MC gốc trước khi chia), ta đổi toàn bộ phần Host (sau vách ngăn) thành số 0 &rarr; <code>192.180.80.0</code>.</p>
+        <div style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '1.5rem', borderLeft: '4px solid #ffbd2e', marginBottom: '2rem' }}>
+          <p style={{ margin: 0, fontSize: '1.1rem', color: 'var(--text-primary)' }}>
+            <strong>Nhiệm vụ:</strong> Chia dải mạng <code style={{ color: '#ffbd2e', background: 'rgba(255,189,46,0.1)' }}>192.180.80.10</code> cho 4 phòng: <br/>
+            <span style={{ color: 'var(--text-muted)', marginTop: '0.5rem', display: 'inline-block' }}>
+              P1 (123 máy) &nbsp;&bull;&nbsp; P2 (62 máy) &nbsp;&bull;&nbsp; P3 (30 máy) &nbsp;&bull;&nbsp; P4 (28 máy)
+            </span>
+          </p>
         </div>
 
-        <div style={{ background: 'var(--bg-color)', padding: '1.5rem', borderRadius: '8px', borderLeft: '2px solid var(--text-muted)', marginBottom: '1rem' }}>
-          <h4 style={{ color: '#88ccff', marginBottom: '1rem' }}>Bước 2: Giải quyết Phòng 1 (P1 - cần 123 máy)</h4>
+        {/* Step 1 */}
+        <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className="v-chip info" style={{ padding: '8px 12px', width: 'max-content' }}>
+              <span className="label" style={{ fontSize: '12px', fontWeight: 'bold' }}>BƯỚC 1</span>
+            </div>
+            <div style={{ width: '2px', flex: 1, background: 'var(--border-subtle)', margin: '1rem 0' }}></div>
+          </div>
           
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h5 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>1. Tìm số bit Host cần thiết (gọi là n):</h5>
-            <p>Để có đủ 123 IP cho 123 máy tính, ta dùng công thức: <strong>2<sup>n</sup> - 2 &ge; 123</strong>.</p>
-            <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', color: 'var(--text-muted)' }}>
-              <li><strong>Tại sao phải trừ 2?</strong> Vì trong bất kỳ mạng nào, ta luôn mất 1 IP đứng đầu làm địa chỉ Mạng (MC) và 1 IP đứng cuối làm Broadcast (QB) để gọi phát thanh. Hai IP này không thể gắn cho máy tính.</li>
-              <li>Ta nhẩm: 2<sup>6</sup> = 64 (Không đủ 123 máy). Thử tiếp 2<sup>7</sup> = 128. Ta thấy 128 - 2 = 126 &ge; 123. Hoàn toàn thoả mãn!</li>
-              <li>&rarr; Suy ra <strong>n = 7</strong>. Tức là ta chỉ cần 7 bit để làm phần Host.</li>
-            </ul>
-            <div className="alert alert-success" style={{ marginTop: '1rem' }}>
-              Ban đầu Lớp C cho bạn 8 bit Host. Nhưng bây giờ bạn chỉ dùng 7 bit. <strong>Vậy là bạn dư ra 1 bit (8 - 7 = 1)</strong>. Ta lấy 1 bit thừa này "mượn" sang làm phần Mạng (để tạo ra mạng con mới). Vách ngăn <code>|</code> sẽ dời sang phải 1 bit.
+          <div style={{ flex: 1, paddingBottom: '1rem' }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', color: '#fff' }}>Chuẩn hóa IP Ban đầu</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
+              Octet đầu là 192 &rarr; Thuộc <strong>Lớp C</strong> (Mặc định /24). Tức là 24 bit mạng, 8 bit host.
+            </p>
+            <div className="mono" style={{ background: '#0a0a0a', padding: '1rem', border: '1px solid #222', color: 'var(--text-muted)' }}>
+              11000000 . 10110100 . 01010000 <strong style={{ color: '#fff' }}>|</strong> <span style={{ color: 'var(--accent-error)' }}>00001010</span>
             </div>
+            <p style={{ color: 'var(--text-muted)', marginTop: '1rem' }}>
+              Để lấy Địa chỉ Mạng Chuẩn (MC), ép toàn bộ Host về 0: <br/>
+              <code style={{ color: 'var(--accent-blue)', background: 'transparent', padding: 0 }}>&rarr; MC Gốc: 192.180.80.0</code>
+            </p>
           </div>
+        </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h5 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>2. Tìm Subnet Mask mới (MNM):</h5>
-            <p>Phần Mạng lúc đầu có 24 bit, giờ mượn thêm 1 bit &rarr; Phần Mạng mới có <strong>25 bit (kí hiệu là /25)</strong>.</p>
-            <p>Viết 25 số 1 ra hệ nhị phân để xem Subnet Mask là gì:</p>
-            <div className="mono" style={{ background: '#000', padding: '0.75rem', margin: '0.5rem 0', color: '#ffb3c6' }}>
-              11111111 . 11111111 . 11111111 . 10000000
+        {/* Step 2 */}
+        <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className="v-chip success" style={{ padding: '8px 12px', width: 'max-content' }}>
+              <span className="label" style={{ fontSize: '12px', fontWeight: 'bold' }}>BƯỚC 2</span>
             </div>
-            <p>3 cụm đầu toàn số 1 đổi ra là 255. Cụm cuối cùng <code>10000000</code> đổi ra thập phân là <strong>128</strong> (vì 2<sup>7</sup> = 128).<br/>
-            &rarr; Subnet Mask (MNM) mới của P1 là: <strong>255.255.255.128</strong>.</p>
+            <div style={{ width: '2px', flex: 1, background: 'var(--border-subtle)', margin: '1rem 0' }}></div>
           </div>
+          
+          <div style={{ flex: 1, paddingBottom: '1rem' }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', color: '#fff' }}>Chia cho Phòng 1 (123 máy)</h3>
+            
+            <div style={{ marginBottom: '2rem' }}>
+              <h4 style={{ color: 'var(--accent-green)', marginBottom: '0.5rem' }}><ChevronRight size={16} style={{ display: 'inline', verticalAlign: 'middle' }}/> 1. Tính bit Host (n)</h4>
+              <p style={{ color: 'var(--text-muted)' }}>
+                Công thức: <code style={{ color: '#fff' }}>2<sup>n</sup> - 2 &ge; 123</code>. <br/>
+                <em>(Trừ 2 vì mất 1 IP cho Mạng và 1 IP cho Broadcast).</em><br/>
+                Nhẩm: 2<sup>7</sup> = 128 &rarr; Thỏa mãn! Vậy <strong>n = 7</strong> (cần 7 bit Host).
+              </p>
+              <div style={{ background: 'rgba(39, 201, 63, 0.1)', padding: '1rem', borderLeft: '2px solid var(--accent-green)', marginTop: '1rem', fontSize: '0.95rem' }}>
+                Lớp C cho 8 bit, nhưng ta chỉ xài 7 bit. <strong>Dư ra 1 bit (8 - 7 = 1)</strong>.<br/>
+                Ta mượn 1 bit này làm Mạng. Vách ngăn <code style={{ color: '#fff', padding: '0 4px' }}>|</code> dời sang phải 1 bước!
+              </div>
+            </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h5 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>3. Tìm MC (Mạng con) và QB (Broadcast):</h5>
-            <p>Nhớ lại vách ngăn bây giờ nằm ở bit thứ 25. Ta xét 8 bit cuối cùng, nó bị vách ngăn chia thành 2 phần: <code>1 bit mượn | 7 bit host</code>.</p>
-            <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', color: 'var(--text-muted)' }}>
-              <li style={{ marginBottom: '0.5rem' }}><strong>Tìm MC:</strong> Quy tắc của MC là <em>toàn bộ bit phần Host phải bằng 0</em>. Giá trị bit mượn hiện tại đang bắt đầu ở số 0.<br/>
-              &rarr; 8 bit cuối là <code>0 | 0000000</code>. Đổi ra thập phân = 0. Vậy MC = <strong>192.180.80.0</strong>.</li>
+            <div style={{ marginBottom: '2rem' }}>
+              <h4 style={{ color: 'var(--accent-green)', marginBottom: '0.5rem' }}><ChevronRight size={16} style={{ display: 'inline', verticalAlign: 'middle' }}/> 2. Subnet Mask mới (MNM)</h4>
+              <p style={{ color: 'var(--text-muted)' }}>
+                Mạng = 24 bit gốc + 1 bit mượn = 25 bit (Ghi là <strong>/25</strong>).<br/>
+                25 số 1 viết ra nhị phân:
+              </p>
+              <div className="mono" style={{ background: '#0a0a0a', padding: '1rem', border: '1px solid #222', color: 'var(--text-muted)' }}>
+                11111111.11111111.11111111.<strong style={{ color: 'var(--accent-green)' }}>1</strong>0000000
+              </div>
+              <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+                Cụm cuối là <code style={{ color: '#fff' }}>10000000</code> = <strong>128</strong>. &rarr; MNM: <strong style={{ color: '#fff' }}>255.255.255.128</strong>.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '2rem' }}>
+              <h4 style={{ color: 'var(--accent-green)', marginBottom: '0.5rem' }}><ChevronRight size={16} style={{ display: 'inline', verticalAlign: 'middle' }}/> 3. MC & QB</h4>
+              <p style={{ color: 'var(--text-muted)' }}>8 bit cuối bị vách ngăn chia thành: <code>1 bit mượn | 7 bit host</code>.</p>
               
-              <li><strong>Tìm QB:</strong> Quy tắc của QB là <em>toàn bộ bit phần Host phải bằng 1</em>. Phần bit mượn vẫn giữ nguyên là 0.<br/>
-              &rarr; 8 bit cuối trở thành <code>0 | 1111111</code>. Tính tổng thập phân: 64 + 32 + 16 + 8 + 4 + 2 + 1 = <strong>127</strong>.<br/>
-              Vậy QB = <strong>192.180.80.127</strong>.</li>
-            </ul>
-          </div>
-          
-          <div className="mono" style={{ background: '#000', padding: '1rem', marginTop: '1rem', borderRadius: '4px', color: 'var(--primary-color)' }}>
-            <div style={{ color: '#fff' }}>// Tổng kết lại cho Phòng 1 (P1):</div>
-            <div>MC = 192.180.80.0</div>
-            <div>QB = 192.180.80.127</div>
-            <div>MNM = 255.255.255.128</div>
-            <br/>
-            <div style={{ color: '#fff' }}>Dải IP dùng cho máy (Nằm giữa MC và QB):</div>
-            <div style={{ color: '#fff' }}>IP bắt đầu: 192.180.80.1</div>
-            <div style={{ color: '#fff' }}>IP kết thúc: 192.180.80.126</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
+                <div style={{ background: '#0a0a0a', padding: '1rem', border: '1px solid #222' }}>
+                  <div style={{ color: 'var(--accent-blue)', fontWeight: 'bold', marginBottom: '0.5rem' }}>MC (Mạng Con)</div>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Ép toàn bộ phần Host thành 0.</div>
+                  <div className="mono">0 <span style={{color: '#fff'}}>|</span> 0000000 &rarr; 0</div>
+                  <div className="mono" style={{ color: '#fff', marginTop: '0.5rem' }}>192.180.80.0</div>
+                </div>
+                <div style={{ background: '#0a0a0a', padding: '1rem', border: '1px solid #222' }}>
+                  <div style={{ color: 'var(--accent-error)', fontWeight: 'bold', marginBottom: '0.5rem' }}>QB (Broadcast)</div>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Ép toàn bộ phần Host thành 1.</div>
+                  <div className="mono">0 <span style={{color: '#fff'}}>|</span> 1111111 &rarr; 127</div>
+                  <div className="mono" style={{ color: '#fff', marginTop: '0.5rem' }}>192.180.80.127</div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
 
-        <div style={{ background: 'var(--bg-color)', padding: '1.5rem', borderRadius: '8px', borderLeft: '2px solid var(--text-muted)' }}>
-          <h4 style={{ color: 'var(--primary-color)', marginBottom: '0.5rem' }}>Bước 3: Tịnh tiến sang Phòng 2 (P2 - 62 máy)</h4>
-          <p><strong>Bí quyết tịnh tiến:</strong> Địa chỉ mạng (MC) của phòng tiếp theo sẽ <strong>luôn nằm ngay sau</strong> địa chỉ Broadcast (QB) của phòng trước!</p>
-          <p>QB của P1 là <code>...127</code> &rarr; MC của P2 chắc chắn bắt đầu từ <code>192.180.80.128</code>.</p>
-          <div style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>
-            <p><strong>1. Tính số bit host:</strong> 2<sup>n</sup> - 2 &ge; 62 &rarr; 2<sup>6</sup> - 2 = 62. Vừa đẹp! Ta cần 6 bit Host.</p>
-            <p><strong>2. Subnet Mask mới:</strong> Lấy 32 bit tổng trừ 6 bit host = 26 bit Mạng (/26).<br/>
-            MNM sẽ là 26 số 1: <code>11111111.11111111.11111111.11000000</code> &rarr; <strong>255.255.255.192</strong>.</p>
-            <p><strong>3. Tìm QB của P2:</strong> MC của P2 là 128 (nhị phân 8 bit cuối là <code>10 | 000000</code>).<br/>
-            Để tìm QB, ta đổi 6 bit host thành toàn số 1: <code>10 | 111111</code>.<br/>
-            Cụm <code>111111</code> có giá trị là 63. Cộng với 128 ở phần mạng = 191.<br/>
-            &rarr; QB của P2 = <strong>192.180.80.191</strong>.</p>
-            <p style={{ marginTop: '1rem' }}>Cứ dùng đúng tư duy logic này, bạn sẽ giải quyết ngon ơ cho P3, P4 mà không sợ nhầm lẫn!</p>
+        {/* Step 3 */}
+        <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className="v-chip warn" style={{ padding: '8px 12px', width: 'max-content' }}>
+              <span className="label" style={{ fontSize: '12px', fontWeight: 'bold' }}>BƯỚC 3</span>
+            </div>
+          </div>
+          
+          <div style={{ flex: 1 }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem', color: '#fff' }}>Tịnh tiến sang Phòng 2 (62 máy)</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.6 }}>
+              <strong>BÍ QUYẾT:</strong> MC của phòng tiếp theo <strong>luôn nằm liền kề</strong> sau QB của phòng trước!
+            </p>
+            <div style={{ background: 'rgba(255,189,46,0.1)', padding: '1.5rem', borderLeft: '4px solid #ffbd2e', marginTop: '1rem' }}>
+              <p style={{ margin: 0, color: '#ffbd2e', fontSize: '1.1rem' }} className="mono">
+                QB P1 = 192.180.80.127 &rarr; MC P2 = 192.180.80.128
+              </p>
+            </div>
+            <p style={{ color: 'var(--text-muted)', marginTop: '1.5rem', lineHeight: 1.8 }}>
+              Tiếp tục lặp lại quy trình: Tính Host (n=6) &rarr; Tìm MNM (/26) &rarr; Tìm QB (191). Cứ như vậy, mạng máy tính sẽ được trải dài một cách hoàn hảo không khe hở!
+            </p>
           </div>
         </div>
+
       </div>
     </div>
   );

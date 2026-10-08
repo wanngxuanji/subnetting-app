@@ -51,9 +51,9 @@ export function Calculator() {
   return (
     <div>
       <div className="card">
-        <div className="card-header">
-          <CalcIcon size={16} />
-          <h2>calculator.ts</h2>
+        <div className="card-header" style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem' }}>
+          <CalcIcon size={20} color="var(--accent-blue)" />
+          <h2 style={{ fontSize: '1.2rem', margin: 0 }}>Cấu hình Mạng Cơ Sở (Base Network)</h2>
         </div>
         <div className="card-body">
           <div className="grid-2">
@@ -80,9 +80,12 @@ export function Calculator() {
       </div>
       </div>
 
-      <div className="card">
-        <div className="card-header" style={{ justifyContent: 'space-between' }}>
-          <h2>Danh sách phòng máy (Yêu cầu)</h2>
+      <div className="card" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="card-header" style={{ justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Network size={20} color="var(--accent-green)" />
+            <h2 style={{ fontSize: '1.2rem', margin: 0 }}>Danh sách phòng máy (Subnets)</h2>
+          </div>
           <button className="btn-square btn-secondary" onClick={addRoom}>
             <Plus size={16} /> Thêm phòng
           </button>
@@ -128,70 +131,94 @@ export function Calculator() {
         </div>
       </div>
       {error && (
-        <div className="alert alert-error">
-          <strong>Lỗi:</strong> {error}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }} className="animate-in">
+          <div className="v-chip error" style={{ padding: '8px 16px', fontSize: '1.1rem' }}>
+            <div className="dot"></div>
+            <span className="label" style={{ fontSize: '14px' }}>LỖI: {error}</span>
+          </div>
         </div>
       )}
 
       {results && results.length > 0 && (
-        <div className="card">
-          <div className="card-header">
-            <Network size={16} />
-            <h2>PHÂN BỔ IP (VLSM)</h2>
+        <div className="card animate-in" style={{ border: '1px solid var(--accent-blue)' }}>
+          <div className="card-header" style={{ background: 'var(--accent-blue)', margin: '-1.5rem -1.5rem 1.5rem -1.5rem', padding: '1rem 1.5rem', color: '#000' }}>
+            <Network size={20} color="#000" />
+            <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Kết Quả Phân Bổ (VLSM)</h2>
           </div>
           <div className="card-body">
-            <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
               <div className="v-chip success">
                 <div className="dot"></div>
-                <span className="label">SUCCESS</span>
+                <span className="label">TỐI ƯU THÀNH CÔNG</span>
               </div>
-              <span style={{ color: 'var(--text-muted)' }}>Mạng được tối ưu tự động từ phòng lớn nhất.</span>
+              <span style={{ color: 'var(--text-muted)' }}>Mạng được sắp xếp tự động từ phòng lớn nhất đến nhỏ nhất để tránh lãng phí IP.</span>
             </div>
 
-          <div className="table-container">
-            <table>
-              <thead>
+          <div className="table-container" style={{ border: '1px solid var(--border-subtle)', borderRadius: '4px', overflow: 'hidden' }}>
+            <table style={{ margin: 0 }}>
+              <thead style={{ background: 'rgba(255,255,255,0.02)' }}>
                 <tr>
-                  <th>Tên phòng</th>
-                  <th>Cần/Thực tế</th>
-                  <th>Network (MC)</th>
-                  <th>Dải IP khả dụng (Start - End)</th>
-                  <th>Broadcast (QB)</th>
-                  <th>Mask (MNM)</th>
+                  <th style={{ color: 'var(--text-primary)' }}>Phòng</th>
+                  <th style={{ color: 'var(--text-muted)' }}>Host (Cần / Có)</th>
+                  <th style={{ color: 'var(--accent-blue)' }}>Mạng Con (MC)</th>
+                  <th style={{ color: 'var(--accent-green)' }}>Dải IP Khả Dụng</th>
+                  <th style={{ color: 'var(--accent-error)' }}>Broadcast (QB)</th>
+                  <th style={{ color: 'var(--text-muted)' }}>Mask (MNM)</th>
                 </tr>
               </thead>
               <tbody>
                 {results.map((r, i) => (
-                  <tr key={i}>
-                    <td><strong>{r.name}</strong></td>
-                    <td>{r.neededHosts} / <span style={{ color: 'var(--primary-color)'}}>{r.allocatedHosts}</span></td>
-                    <td style={{ color: '#ffb3c6' }}>{r.networkAddress}/{r.cidr}</td>
-                    <td>{r.firstUsable} <span style={{ color: 'var(--text-muted)' }}>-&gt;</span> {r.lastUsable}</td>
-                    <td style={{ color: '#88ccff' }}>{r.broadcastAddress}</td>
-                    <td>{r.subnetMask}</td>
+                  <tr key={i} style={{ borderBottom: '1px dotted var(--border-subtle)' }}>
+                    <td style={{ color: 'var(--text-primary)', fontWeight: 'bold' }}>{r.name}</td>
+                    <td style={{ color: 'var(--text-muted)' }}>{r.neededHosts} / <span style={{ color: 'var(--text-primary)'}}>{r.allocatedHosts}</span></td>
+                    <td className="mono" style={{ color: 'var(--accent-blue)' }}>{r.networkAddress}/{r.cidr}</td>
+                    <td className="mono" style={{ color: 'var(--accent-green)' }}>{r.firstUsable} <span style={{ color: 'var(--text-muted)' }}>-&gt;</span> {r.lastUsable}</td>
+                    <td className="mono" style={{ color: 'var(--accent-error)' }}>{r.broadcastAddress}</td>
+                    <td className="mono" style={{ color: 'var(--text-muted)' }}>{r.subnetMask}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div style={{ marginTop: '2rem' }}>
-            <h3>Bản chất nhị phân (Cách giải của thầy)</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.9rem' }}>
-              Dấu <code>|</code> biểu diễn vách ngăn giữa phần Mạng (Network) và phần Máy (Host).
+          <div style={{ marginTop: '3rem' }}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: '#fff' }}>Bản chất Nhị phân (Console Log)</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+              Dấu <code style={{ color: '#fff' }}>|</code> biểu diễn vách ngăn giữa phần <strong>Mạng (Network)</strong> và phần <strong>Máy (Host)</strong>. Quá trình chia mạng thực chất là quá trình dời vách ngăn này.
             </p>
-            <div className="mono" style={{ background: '#000', padding: '1rem', borderRadius: '4px', fontSize: '0.85rem', color: 'var(--primary-color)' }}>
-              {results.map(r => (
-                <div key={r.name} style={{ marginBottom: '1.5rem', borderBottom: '1px solid #222', paddingBottom: '1rem' }}>
-                  <div style={{ color: '#fff', marginBottom: '0.5rem', fontWeight: 'bold' }}>{r.name} (cần {r.neededHosts} máy {`->`} /x = /{r.cidr})</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '1rem', color: '#ffb3c6' }}>
-                    <span>MC:</span> <span>{getBinaryStep(r.networkAddress, r.cidr)}  ({r.networkAddress})</span>
+            <div style={{ background: '#050505', border: '1px solid #222', borderRadius: '4px', overflow: 'hidden' }}>
+              <div style={{ display: 'flex', gap: '6px', padding: '10px 12px', background: '#111', borderBottom: '1px solid #222' }}>
+                <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f56' }}></div>
+                <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }}></div>
+                <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#27c93f' }}></div>
+              </div>
+              <div className="mono" style={{ padding: '1.5rem', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                {results.map(r => (
+                  <div key={r.name} style={{ marginBottom: '2rem' }}>
+                    <div style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+                      <span style={{ color: '#fff', fontWeight: 'bold' }}>// {r.name}</span> (Cần {r.neededHosts} máy &rarr; Cấp /x = /{r.cidr})
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '1rem', color: 'var(--accent-blue)' }}>
+                      <span>MC:</span> 
+                      <span>
+                        {getBinaryStep(r.networkAddress, r.cidr).split('|')[0]}
+                        <span style={{ color: '#fff' }}>|</span>
+                        {getBinaryStep(r.networkAddress, r.cidr).split('|')[1]} 
+                        <span style={{ color: 'var(--text-muted)', marginLeft: '1rem' }}>&rarr; {r.networkAddress}</span>
+                      </span>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '1rem', color: 'var(--accent-error)' }}>
+                      <span>QB:</span> 
+                      <span>
+                        {getBinaryStep(r.broadcastAddress, r.cidr).split('|')[0]}
+                        <span style={{ color: '#fff' }}>|</span>
+                        {getBinaryStep(r.broadcastAddress, r.cidr).split('|')[1]} 
+                        <span style={{ color: 'var(--text-muted)', marginLeft: '1rem' }}>&rarr; {r.broadcastAddress}</span>
+                      </span>
+                    </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '1rem', color: '#88ccff' }}>
-                    <span>QB:</span> <span>{getBinaryStep(r.broadcastAddress, r.cidr)}  ({r.broadcastAddress})</span>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             </div>
           </div>

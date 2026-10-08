@@ -52,6 +52,8 @@ function generateRandomProblem(mode: Difficulty) {
 
 export function Practice() {
   const [mode, setMode] = useState<Difficulty | null>(null);
+  const [selectedMode, setSelectedMode] = useState<Difficulty | null>(null);
+  const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(1);
   const [problem, setProblem] = useState<any>(null);
   const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
@@ -85,8 +87,10 @@ export function Practice() {
     return () => clearInterval(timer);
   }, [mode, feedback, timeLeft, showResult]);
 
-  const startGame = (selectedMode: Difficulty) => {
+  const startGame = () => {
+    if (!selectedMode) return;
     setMode(selectedMode);
+    setIsStarted(true);
     setQuestionCount(1);
     setScore(0);
     setIsProblemFailed(false);
@@ -153,7 +157,7 @@ export function Practice() {
     setFeedback({ checks, allCorrect, timeout: false });
   };
 
-  if (!mode) {
+  if (!isStarted) {
     return (
       <div className="card animate-in">
         <div className="card-header">
@@ -164,8 +168,12 @@ export function Practice() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
             Bạn sẽ trải qua 10 câu hỏi để rèn luyện kỹ năng VLSM. Hãy chọn độ khó phù hợp:
           </p>
-          <div className="grid-3">
-            <div className="card" style={{ cursor: 'pointer', marginBottom: 0 }} onClick={() => startGame('easy')}>
+          <div className="grid-3" style={{ marginBottom: '2rem' }}>
+            <div 
+              className="card" 
+              style={{ cursor: 'pointer', marginBottom: 0, border: selectedMode === 'easy' ? '2px solid var(--accent-green)' : '1px solid var(--border-subtle)' }} 
+              onClick={() => setSelectedMode('easy')}
+            >
               <h3 style={{ color: 'var(--accent-green)', marginBottom: '1rem' }}>EASY</h3>
               <ul style={{ color: 'var(--text-muted)', fontSize: '0.9rem', paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <li>Có gợi ý (Hints)</li>
@@ -174,7 +182,11 @@ export function Practice() {
                 <li>Phải tự xác định lớp mạng (Class A/B/C)</li>
               </ul>
             </div>
-            <div className="card" style={{ cursor: 'pointer', marginBottom: 0 }} onClick={() => startGame('normal')}>
+            <div 
+              className="card" 
+              style={{ cursor: 'pointer', marginBottom: 0, border: selectedMode === 'normal' ? '2px solid var(--accent-blue)' : '1px solid var(--border-subtle)' }} 
+              onClick={() => setSelectedMode('normal')}
+            >
               <h3 style={{ color: 'var(--accent-blue)', marginBottom: '1rem' }}>NORMAL</h3>
               <ul style={{ color: 'var(--text-muted)', fontSize: '0.9rem', paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <li>Không có gợi ý</li>
@@ -183,7 +195,11 @@ export function Practice() {
                 <li>Phải tự xác định lớp mạng (Class A/B/C)</li>
               </ul>
             </div>
-            <div className="card" style={{ cursor: 'pointer', marginBottom: 0, borderColor: 'var(--accent-error)' }} onClick={() => startGame('hard')}>
+            <div 
+              className="card" 
+              style={{ cursor: 'pointer', marginBottom: 0, border: selectedMode === 'hard' ? '2px solid var(--accent-error)' : '1px solid var(--border-subtle)' }} 
+              onClick={() => setSelectedMode('hard')}
+            >
               <h3 style={{ color: 'var(--accent-error)', marginBottom: '1rem' }}>HARD</h3>
               <ul style={{ color: 'var(--text-muted)', fontSize: '0.9rem', paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <li>Không có gợi ý</li>
@@ -192,6 +208,17 @@ export function Practice() {
                 <li>Đòi hỏi tính toán nhẩm cực nhanh</li>
               </ul>
             </div>
+          </div>
+          
+          <div style={{ textAlign: 'center' }}>
+            <button 
+              className="btn-square large" 
+              disabled={!selectedMode}
+              onClick={startGame}
+              style={{ minWidth: '200px' }}
+            >
+              XÁC NHẬN BẮT ĐẦU
+            </button>
           </div>
         </div>
       </div>
@@ -225,7 +252,7 @@ export function Practice() {
           {score}<span style={{ fontSize: '40px', color: 'var(--text-muted)' }}>/10</span>
         </div>
 
-        <button className="btn-square large" onClick={() => setMode(null)}>
+        <button className="btn-square large" onClick={() => { setIsStarted(false); setMode(null); }}>
           Quay lại menu chọn độ khó
         </button>
       </div>
@@ -250,7 +277,7 @@ export function Practice() {
         <div className="card-header" style={{ justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Target size={16} />
-            <h2>Câu hỏi {questionCount}/10 (Chế độ: {mode.toUpperCase()})</h2>
+            <h2>Câu hỏi {questionCount}/10 (Chế độ: {mode?.toUpperCase()})</h2>
           </div>
           {mode === 'hard' && (
             <div className="v-chip" style={{ borderColor: timeLeft < 60 ? 'var(--accent-error)' : 'var(--accent-blue)' }}>
