@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Calculator as SubnetCalculator } from './components/Calculator';
 import { Practice } from './components/Practice';
 import { Theory } from './components/Theory';
-import { BookOpen, Target, Calculator, GitBranch, Cpu } from 'lucide-react';
+import { ArrowUpRight, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
 
@@ -10,9 +10,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('theory');
 
   const navItems = [
-    { id: 'theory', label: 'README.md', icon: BookOpen },
-    { id: 'practice', label: 'practice-mode.ts', icon: Target },
-    { id: 'calculator', label: 'calculator.ts', icon: Calculator },
+    { id: 'theory', label: 'THEORY' },
+    { id: 'practice', label: 'PRACTICE' },
+    { id: 'calculator', label: 'CALCULATOR' },
   ];
 
   const renderContent = () => {
@@ -26,59 +26,40 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* GitHub Global Header */}
-      <header className="gh-navbar">
-        <GitBranch size={32} color="#fff" />
-        <div style={{ display: 'flex', gap: '1rem', flex: 1, marginLeft: '1rem' }}>
-          <input 
-            type="text" 
-            placeholder="Search or jump to..." 
-            style={{ width: '300px', backgroundColor: 'var(--gh-bg)', borderRadius: '6px' }} 
-            disabled
-          />
+      {/* Header */}
+      <header className="header-nav">
+        <div className="brand">
+          <Cpu size={24} color="#fff" />
+          <span>SUBNET.AI</span>
         </div>
+        
+        <div className="nav-tabs">
+          {navItems.map(item => (
+            <button
+              key={item.id}
+              className={`nav-tab ${activeTab === item.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        <button className="btn-square" onClick={() => window.open('https://github.com/wanngxuanji/subnetting-app', '_blank')}>
+          View Repo
+          <ArrowUpRight size={16} />
+        </button>
       </header>
 
-      {/* GitHub Repository Header */}
-      <div style={{ backgroundColor: 'var(--gh-header-bg)', borderBottom: '1px solid var(--gh-border)' }}>
-        <div style={{ padding: '1.5rem 2rem 1rem 2rem' }}>
-          <div className="gh-repo-title">
-            <Cpu size={20} color="var(--gh-muted)" />
-            <span className="owner">wanngxuanji</span>
-            <span className="separator">/</span>
-            <span className="repo">subnetting-app</span>
-            <span className="gh-badge">Public</span>
-          </div>
-        </div>
-
-        {/* Repository Navigation Tabs */}
-        <div className="gh-tabs-container">
-          {navItems.map(item => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <div 
-                key={item.id}
-                className={`gh-tab ${isActive ? 'active' : ''}`}
-                onClick={() => setActiveTab(item.id)}
-              >
-                <Icon size={16} />
-                <span>{item.label}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Main Content Area */}
-      <main className="gh-main" style={{ flex: 1, width: '100%' }}>
+      <main className="main-container" style={{ flex: 1, width: '100%' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(4px)' }}
+            transition={{ duration: 0.3 }}
           >
             {renderContent()}
           </motion.div>

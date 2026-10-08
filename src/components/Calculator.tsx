@@ -78,14 +78,16 @@ export function Calculator() {
           </div>
         </div>
       </div>
+      </div>
 
       <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+        <div className="card-header" style={{ justifyContent: 'space-between' }}>
           <h2>Danh sách phòng máy (Yêu cầu)</h2>
-          <button className="btn btn-secondary" onClick={addRoom}>
-            <Plus size={18} /> Thêm phòng
+          <button className="btn-square btn-secondary" onClick={addRoom}>
+            <Plus size={16} /> Thêm phòng
           </button>
         </div>
+        <div className="card-body">
 
         {rooms.map((room) => (
           <div key={room.id} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-end' }}>
@@ -107,20 +109,20 @@ export function Calculator() {
               />
             </div>
             <button 
-              className="btn btn-secondary" 
-              style={{ padding: '0.75rem' }}
+              className="btn-square btn-secondary" 
+              style={{ padding: '0.75rem', height: '47px' }}
               onClick={() => removeRoom(room.id)}
               title="Xóa phòng"
             >
-              <Trash2 size={20} color="var(--error-color)" />
+              <Trash2 size={20} color="var(--accent-error)" />
             </button>
           </div>
         ))}
 
         <div style={{ marginTop: '2rem' }}>
-          <button className="btn" style={{ width: '100%' }} onClick={handleCalculate}>
+          <button className="btn-square large" style={{ width: '100%' }} onClick={handleCalculate}>
             <CalcIcon size={20} />
-            Bắt đầu chia mạng (VLSM)
+            BẮT ĐẦU CHIA MẠNG
           </button>
         </div>
         </div>
@@ -135,12 +137,16 @@ export function Calculator() {
         <div className="card">
           <div className="card-header">
             <Network size={16} />
-            <h2>Kết quả phân bổ IP</h2>
+            <h2>PHÂN BỔ IP (VLSM)</h2>
           </div>
           <div className="card-body">
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            Lưu ý: Mạng đã tự động được sắp xếp từ phòng cần nhiều máy nhất đến ít máy nhất theo chuẩn VLSM.
-          </p>
+            <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+              <div className="v-chip success">
+                <div className="dot"></div>
+                <span className="label">SUCCESS</span>
+              </div>
+              <span style={{ color: 'var(--text-muted)' }}>Mạng được tối ưu tự động từ phòng lớn nhất.</span>
+            </div>
 
           <div className="table-container">
             <table>
