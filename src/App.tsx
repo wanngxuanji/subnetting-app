@@ -45,14 +45,21 @@ export default function App() {
   const [lang, setLang] = useState<Language | null>(null);
   const [showLangModal, setShowLangModal] = useState(false);
   const [tempLang, setTempLang] = useState<Language>('en');
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     const savedLang = localStorage.getItem('app_lang') as Language;
     if (savedLang && (savedLang === 'en' || savedLang === 'vi' || savedLang === 'zh')) {
       setLang(savedLang);
     } else {
       setShowLangModal(true);
     }
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleSetLang = (selectedLang: Language) => {
@@ -60,6 +67,19 @@ export default function App() {
     localStorage.setItem('app_lang', selectedLang);
     setShowLangModal(false);
   };
+
+  if (isMobile) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-core)', padding: '2rem', textAlign: 'center' }}>
+        <div className="card animate-in" style={{ borderTop: '4px solid var(--accent-error)' }}>
+          <Terminal size={48} color="var(--accent-error)" style={{ margin: '0 auto 1.5rem' }} />
+          <h1 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.5rem' }}>Thiết bị không hỗ trợ</h1>
+          <p style={{ color: 'var(--text-muted)' }}>Ứng dụng SUBNET.AI chứa trình mô phỏng Terminal và bảng tính phức tạp.</p>
+          <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Vui lòng sử dụng <strong>PC, Laptop hoặc Tablet/iPad</strong> để truy cập.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (showLangModal || !lang) {
     return (
