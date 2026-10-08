@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Calculator as SubnetCalculator } from './components/Calculator';
 import { Practice } from './components/Practice';
 import { Theory } from './components/Theory';
-import { ArrowUpRight, Cpu, Globe } from 'lucide-react';
+import { ArrowUpRight, Terminal, Globe } from 'lucide-react';
 import './index.css';
 
 type Language = 'vi' | 'en' | 'zh';
@@ -65,7 +65,7 @@ export default function App() {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-core)' }}>
         <div className="card animate-in" style={{ width: '100%', maxWidth: '500px', textAlign: 'center', padding: '3rem 2rem' }}>
-          <Cpu size={48} color="var(--accent-blue)" style={{ margin: '0 auto 1.5rem' }} />
+          <Terminal size={48} color="var(--accent-blue)" style={{ margin: '0 auto 1.5rem' }} />
           <h1 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>{translations[tempLang].welcome}</h1>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>{translations[tempLang].selectLangMsg}</p>
           
@@ -113,7 +113,7 @@ export default function App() {
       }}>
         <div className="brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ background: 'var(--text-primary)', padding: '6px', borderRadius: '4px' }}>
-            <Cpu size={20} color="#000" />
+            <Terminal size={20} color="#000" />
           </div>
           <span style={{ fontWeight: 800, letterSpacing: '-0.5px' }}>SUBNET.AI</span>
         </div>
