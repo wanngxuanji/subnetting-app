@@ -105,13 +105,14 @@ export function Practice() {
   const isFirstRoom = currentRoomIndex === 0;
 
   return (
-    <div className="animate-in">
+    <div>
       <div className="card question-box">
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Target size={24} color="var(--primary-color)" />
-          Đề bài
-        </h2>
-        <p className="question-text" style={{ marginTop: '1rem' }}>
+        <div className="card-header">
+          <Target size={16} />
+          <h2>practice-mode.ts / Đề bài</h2>
+        </div>
+        <div className="card-body">
+          <p className="question-text">
           Bạn được cấp dải mạng <strong>{problem.baseNet}/{problem.cidr}</strong>.
         </p>
         <div className="mono" style={{ background: '#000', padding: '1rem', borderRadius: '4px', marginTop: '1rem', color: '#ffb3c6', fontSize: '1.1rem' }}>
@@ -151,17 +152,23 @@ export function Practice() {
           </div>
         )}
 
-        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--bg-color)', borderRadius: 'var(--radius-sm)' }}>
+        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'var(--gh-sub-header)', borderRadius: '6px' }}>
           <p>
             <strong>Nhiệm vụ {currentRoomIndex + 1}/{problem.rooms.length}:</strong> Hãy tính toán các thông số cho <strong>{currentRoom.name}</strong> 
             ({currentRoom.hosts} máy).
             {isFirstRoom && " (phòng lớn nhất - ưu tiên chia trước)"}
           </p>
         </div>
+        </div>
       </div>
 
       <div className="card">
-        <h3 style={{ marginBottom: '1.5rem', color: '#ffb3c6' }}>Nhập đáp án (Nhị phân trước &rarr; Thập phân sau):</h3>
+        <div className="card-header">
+          <Target size={16} />
+          <h2>practice-mode.ts / Trả lời</h2>
+        </div>
+        <div className="card-body">
+          <h3 style={{ marginBottom: '1.5rem', color: '#ffb3c6' }}>Nhập đáp án (Nhị phân trước &rarr; Thập phân sau):</h3>
         
         <div className="grid-1" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
@@ -316,6 +323,7 @@ export function Practice() {
             )}
           </div>
         )}
+        </div>
       </div>
     </div>
   );

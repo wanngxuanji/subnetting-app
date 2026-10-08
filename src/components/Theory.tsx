@@ -2,7 +2,7 @@ import { BookOpen, AlertCircle, TerminalSquare } from 'lucide-react';
 
 export function Theory() {
   return (
-    <div className="animate-in">
+    <div>
       <div className="card" style={{ borderLeft: '4px solid var(--primary-color)' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
           <BookOpen size={24} color="var(--primary-color)" />

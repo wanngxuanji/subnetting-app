@@ -49,14 +49,14 @@ export function Calculator() {
   };
 
   return (
-    <div className="animate-in">
+    <div>
       <div className="card">
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
-          <Network size={24} color="var(--primary-color)" />
-          Thông số mạng (Base Network)
-        </h2>
-        
-        <div className="grid-2">
+        <div className="card-header">
+          <CalcIcon size={16} />
+          <h2>calculator.ts</h2>
+        </div>
+        <div className="card-body">
+          <div className="grid-2">
           <div className="input-group">
             <label>Địa chỉ IP mạng (Network IP)</label>
             <input 
@@ -123,8 +123,8 @@ export function Calculator() {
             Bắt đầu chia mạng (VLSM)
           </button>
         </div>
+        </div>
       </div>
-
       {error && (
         <div className="alert alert-error">
           <strong>Lỗi:</strong> {error}
@@ -132,9 +132,13 @@ export function Calculator() {
       )}
 
       {results && results.length > 0 && (
-        <div className="card animate-in">
-          <h2 style={{ marginBottom: '1rem' }}>Kết quả phân bổ IP</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+        <div className="card">
+          <div className="card-header">
+            <Network size={16} />
+            <h2>Kết quả phân bổ IP</h2>
+          </div>
+          <div className="card-body">
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
             Lưu ý: Mạng đã tự động được sắp xếp từ phòng cần nhiều máy nhất đến ít máy nhất theo chuẩn VLSM.
           </p>
 
@@ -182,6 +186,7 @@ export function Calculator() {
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </div>
