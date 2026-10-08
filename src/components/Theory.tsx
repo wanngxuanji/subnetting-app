@@ -73,18 +73,18 @@ export function Theory() {
               <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }}></div>
               <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#27c93f' }}></div>
             </div>
-            <div className="mono" style={{ padding: '1.5rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', lineHeight: 1.5 }}>
+            <div className="mono" style={{ padding: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1.5, overflowX: 'auto' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <span style={{ color: 'var(--accent-blue)', letterSpacing: '2px' }}>11000000.10101000.00000001</span>
-                <span style={{ color: 'var(--accent-blue)', fontSize: '0.8rem', marginTop: '4px' }}>&lt;------- Phần Mạng -------&gt;</span>
+                <span style={{ color: 'var(--accent-blue)', letterSpacing: '1px' }}>11000000.10101000.00000001</span>
+                <span style={{ color: 'var(--accent-blue)', fontSize: '0.75rem', marginTop: '4px' }}>&lt;------- Phần Mạng -------&gt;</span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 15px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 10px' }}>
                 <span style={{ color: '#fff', fontWeight: 'bold' }}>|</span>
-                <span style={{ color: 'transparent', fontSize: '0.8rem', marginTop: '4px' }}>|</span>
+                <span style={{ color: 'transparent', fontSize: '0.75rem', marginTop: '4px' }}>|</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <span style={{ color: 'var(--accent-error)', letterSpacing: '2px' }}>00000000</span>
-                <span style={{ color: 'var(--accent-error)', fontSize: '0.8rem', marginTop: '4px' }}>&lt;- Host -&gt;</span>
+                <span style={{ color: 'var(--accent-error)', letterSpacing: '1px' }}>00000000</span>
+                <span style={{ color: 'var(--accent-error)', fontSize: '0.75rem', marginTop: '4px' }}>&lt;- Host -&gt;</span>
               </div>
             </div>
           </div>
