@@ -132,9 +132,7 @@ export default function App() {
         boxShadow: '0 4px 30px rgba(0,0,0,0.5)'
       }}>
         <div className="brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ background: 'var(--text-primary)', padding: '6px', borderRadius: '4px' }}>
-            <Terminal size={20} color="#000" />
-          </div>
+          <Terminal size={24} color="var(--accent-blue)" />
           <span style={{ fontWeight: 800, letterSpacing: '-0.5px' }}>SUBNET.AI</span>
         </div>
         
