@@ -1,11 +1,4 @@
-import { BookOpen, AlertCircle, TerminalSquare, Image as ImageIcon } from 'lucide-react';
-
-const images = [
-  "media_1791388500040.jpg", "media_1791388500617.jpg", "media_1791388501149.jpg",
-  "media_1791388501600.jpg", "media_1791388501614.jpg", "media_1791388501800.jpg",
-  "media_1791388517481.jpg", "media_1791388517647.jpg", "media_1791388518071.jpg",
-  "media_1791388518590.jpg", "media_1791388518617.jpg", "media_1791388518651.jpg"
-];
+import { BookOpen, AlertCircle, TerminalSquare } from 'lucide-react';
 
 export function Theory() {
   return (
